@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABYAN CELL NDESO - Pulsa, Token PLN, Top-up Game Murah Ndeso</title>
+<meta name="description" content="ABYAN CELL NDESO - Pulsa All Operator, Paket Data, Token PLN, Top-up Game. Harga murah ndeso, proses cepat 24 jam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          'display': ['"Fraunces"', 'serif'],
+          'sans': ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        },
+        colors: {
+          brand: {
+            DEFAULT: '#0d9f6e',
+            dark: '#0a7d57',
+            light: '#e6f6f0',
+            soft: '#f3faf7',
+          },
+          ink: '#1a2822',
+          muted: '#6b7a73',
+          line: '#dde8e2',
+          paper: '#f9f7f2',
+        },
+        boxShadow: {
+          'soft': '0 8px 30px rgba(21, 63, 48, 0.07)',
+          'soft-lg': '0 16px 48px rgba(21, 63, 48, 0.09)',
+          'float': '0 14px 40px rgba(13, 159, 110, 0.18)',
+        }
+      }
+    }
+  }
+</script>
+<style type="text/tailwindcss">
+  body { background-color: #f9f7f2; color: #1a2822; }
+  .btn-brand { @apply bg-brand text-white font-bold rounded-full transition-all hover:bg-brand-dark active:scale-[0.98] shadow-float; }
+  .chip { @apply px-4 py-2 rounded-full text-sm font-semibold border border-line bg-white text-muted transition-all cursor-pointer hover:border-brand/30; }
+  .chip.active { @apply bg-brand text-white border-brand shadow-float; }
+  .input-clean { @apply w-full bg-white border border-line rounded-2xl px-4 py-3.5 text-[15px] outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all placeholder:text-muted/60; }
+  .product-card { @apply bg-white rounded-[20px] border border-line p-4 cursor-pointer transition-all hover:border-brand/40 hover:shadow-soft relative; }
+  .product-card.selected { @apply border-brand ring-2 ring-brand/20 bg-brand-soft; }
+  .toast { animation: toastIn .35s cubic-bezier(.21,1.02,.73,1);}
+  @keyframes toastIn { from { transform: translateY(12px); opacity:0 } to { transform: translateY(0); opacity:1 } }
+  /* Custom scrollbar for product grid on desktop */
+  .custom-scroll::-webkit-scrollbar { width: 6px; }
+  .custom-scroll::-webkit-scrollbar-thumb { background:#cddbd4; border-radius: 4px;}
+</style>
+</head>
+<body class="font-sans antialiased min-h-screen">
+<script>
+const STORE_CONFIG = {
+  store_name: "ABYAN CELL NDESO",
+  tagline: "Pulsa, Token PLN, Top-up Game Murah Ndeso",
+  markup: 2000,
+  whatsapp: "628xxxxxxxxxx",
+  wa_message: "Halo Abyan Cell, mau tanya dong kak"
+};
+</script>
+
+<!-- Toast Container -->
+<div id="toast-container" class="fixed bottom-20 md:bottom-6 right-4 left-4 md:left-auto z-[100] flex flex-col gap-2 md:w-96"></div>
+
+<!-- Header / Nav -->
+<header class="sticky top-0 z-40 bg-paper/85 backdrop-blur-xl border-b border-line/80">
+  <div class="max-w-6xl mx-auto px-4 md:px-8 h-[68px] flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-[14px] bg-brand flex items-center justify-center shadow-soft">
+        <i data-lucide="zap" class="w-[20px] h-[20px] text-white" stroke-width="2.5"></i>
+      </div>
+      <div>
+        <div class="font-display text-[18px] leading-tight text-ink tracking-tight">Abyan Cell</div>
+        <div class="text-[10.5px] font-bold tracking-widest text-brand -mt-0.5">NDESO</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[14px] font-semibold text-muted">
+      <a href="#produk" class="hover:text-ink transition">Produk</a>
+      <a href="#cara-order" class="hover:text-ink transition">Cara Order</a>
+      <a href="#cek-status" class="hover:text-ink transition">Cek Status</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a id="wa-header-link" href="#" target="_blank" class="hidden sm:flex items-center gap-2 text-[13.5px] font-semibold text-ink hover:text-brand transition">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        Chat WA
+      </a>
+      <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-full border border-line bg-white flex items-center justify-center">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-line bg-white px-4 py-3 text-[14px] font-semibold text-muted space-y-3">
+    <a href="#produk" class="block py-1 mobile-nav-link">Produk</a>
+    <a href="#cara-order" class="block py-1 mobile-nav-link">Cara Order</a>
+    <a href="#cek-status" class="block py-1 mobile-nav-link">Cek Status</a>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-14">
+  <!-- HERO -->
+  <section class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center mb-10 md:mb-16">
+    <div class="lg:col-span-7">
+      <div class="inline-flex items-center gap-2 bg-brand-light text-brand-dark text-[12px] font-bold px-3 py-1.5 rounded-full mb-5">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+        Buka 24 Jam • Proses Otomatis
+      </div>
+      <h1 class="font-display text-[44px] sm:text-[64px] md:text-[76px] leading-[0.92] tracking-[-0.022em] text-ink">
+        Pulsa & Top-up<br>
+        <span class="text-brand">Murah Ndeso.</span>
+      </h1>
+      <p class="text-muted text-[17px] md:text-[18px] leading-relaxed mt-5 max-w-[500px]">
+        ABYAN CELL NDESO. Pulsa, Token PLN, Paket Data, sampai Top-up Game. Harga jujur, masuk cepat. Cukup dari HP.
+      </p>
+      <div class="flex flex-wrap gap-3 mt-7">
+        <a href="#produk" class="btn-brand px-6 py-3.5 text-[15px]">Beli Sekarang</a>
+        <a id="wa-hero-link" href="#" target="_blank" class="px-6 py-3.5 rounded-full font-bold text-[15px] border border-line bg-white hover:border-ink/20 transition">Chat WhatsApp</a>
+      </div>
+
+      <div class="flex flex-wrap gap-x-7 gap-y-3 text-[13.5px] text-muted font-semibold mt-8">
+        <span class="flex items-center gap-2"><i data-lucide="badge-check" class="w-4 h-4 text-brand"></i> Harga + Rp 2.000 aja</span>
+        <span class="flex items-center gap-2"><i data-lucide="clock-3" class="w-4 h-4 text-brand"></i> Proses 1-3 menit</span>
+        <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-brand"></i> Garansi masuk</span>
+      </div>
+    </div>
+
+    <!-- Balance / Operator Checker Card -->
+    <div class="lg:col-span-5">
+      <div class="bg-white rounded-[28px] shadow-soft-lg border border-line p-6 md:p-8 relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-36 h-36 bg-brand-soft rounded-full blur-2xl opacity-80 pointer-events-none"></div>
+        <div class="flex items-center justify-between mb-1 relative">
+          <p class="text-[12px] font-bold tracking-wider text-muted uppercase">Saldo Server</p>
+          <span id="deposit-dot" class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
+        </div>
+        <div class="flex items-baseline gap-2 mb-5 relative">
+          <div id="deposit-balance" class="font-display text-[38px] text-ink">Rp —</div>
+          <button id="btn-check-deposit" class="text-[12.5px] font-bold text-brand hover:text-brand-dark">Refresh</button>
+        </div>
+        <div class="h-px bg-line mb-5"></div>
+
+        <p class="text-[12.5px] font-bold text-muted mb-3 uppercase tracking-wide">Cek Operator Nomor</p>
+        <div class="flex gap-2">
+          <input id="checker-input" type="tel" inputmode="numeric" placeholder="08xxxxxxxxxx" class="input-clean flex-1 !py-3">
+          <button id="checker-btn" class="bg-paper border border-line rounded-2xl px-4 font-bold text-sm text-ink hover:bg-zinc-100 transition">Cek</button>
+        </div>
+        <div id="checker-result" class="mt-3 text-[13.5px] font-semibold text-muted min-h-[22px]">Masukkan nomor tujuanmu.</div>
+
+        <div class="mt-5 pt-5 border-t border-dashed border-line grid grid-cols-3 text-center text-[11.5px] font-bold text-muted">
+          <div>Telkomsel<br><span class="text-ink">Tersedia</span></div>
+          <div>XL / Axis<br><span class="text-ink">Tersedia</span></div>
+          <div>Indosat<br><span class="text-ink">Tersedia</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUSTED STRIP -->
+  <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[12.5px] font-semibold text-muted mb-10 md:mb-14 border-y border-line py-4">
+    <span class="text-ink">Dipercaya warga ndeso:</span>
+    <span>Telkomsel</span>
+    <span>Indosat</span>
+    <span>XL / Axis</span>
+    <span>Tri</span>
+    <span>Smartfren</span>
+    <span>PLN</span>
+    <span>DANA</span>
+    <span>Mobile Legends</span>
+    <span>Free Fire</span>
+  </div>
+
+  <!-- PRODUK SECTION -->
+  <section id="produk" class="scroll-mt-24">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
+      <div>
+        <h2 class="font-display text-[34px] md:text-[44px] tracking-tight text-ink">Daftar Harga</h2>
+        <p class="text-muted mt-1">Harga nett sudah termasuk markup Rp 2.000. Tanpa biaya tambahan.</p>
+      </div>
+      <div class="relative w-full md:w-72">
+        <i data-lucide="search" class="w-4 h-4 text-muted absolute left-4 top-1/2 -translate-y-1/2"></i>
+        <input id="search-input" type="text" placeholder="Cari: Telkomsel 10rb, PLN 20rb..." class="input-clean !pl-11 !py-3 text-[14px]">
+      </div>
+    </div>
+
+    <!-- Category chips -->
+    <div id="category-chips" class="flex flex-wrap gap-2 mb-5">
+      <button data-cat="all" class="chip active">Semua</button>
+      <button data-cat="Pulsa" class="chip">Pulsa</button>
+      <button data-cat="Data" class="chip">Data</button>
+      <button data-cat="PLN" class="chip">PLN</button>
+      <button data-cat="Games" class="chip">Games</button>
+    </div>
+
+    <!-- Product Grid + Order Form (desktop side-by-side) -->
+    <div class="grid lg:grid-cols-12 gap-7 lg:gap-8 items-start">
+      <!-- Product Grid -->
+      <div class="lg:col-span-7 xl:col-span-8">
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 min-h-[320px]">
+          <!-- JS injects -->
+        </div>
+        <div id="product-empty" class="hidden text-center py-16 text-muted bg-white rounded-[24px] border border-dashed border-line">
+          Produk tidak ditemukan. Coba kata kunci lain.
+        </div>
+        <div id="product-loading" class="text-center py-16 text-muted">
+          <div class="inline-block w-5 h-5 border-2 border-brand border-t-transparent rounded-full animate-spin mr-2 align-middle"></div>
+          Memuat harga dari server...
+        </div>
+      </div>
+
+      <!-- Order Form (sticky on desktop) -->
+      <aside class="lg:col-span-5 xl:col-span-4">
+        <div class="bg-white rounded-[28px] shadow-soft border border-line p-6 md:p-7 lg:sticky lg:top-[92px]">
+          <h3 class="font-display text-[26px] text-ink mb-1">Form Order</h3>
+          <p class="text-[13.5px] text-muted mb-5">Isi nomor tujuan, pilih produk di kiri, lalu bayar.</p>
+
+          <form id="order-form" class="space-y-4" novalidate>
+            <div>
+              <label class="text-[12px] font-bold text-muted">Nomor Tujuan / ID Game</label>
+              <input id="f-customer_no" name="customer_no" type="text" inputmode="numeric" placeholder="08xxxxxxxx / ID + Server" class="input-clean mt-1.5" required>
+              <p id="f-customer_hint" class="text-[12px] text-muted mt-1.5">Contoh: 08123456789 / 123456789 (1234)</p>
+            </div>
+
+            <div>
+              <label class="text-[12px] font-bold text-muted">Produk Dipilih</label>
+              <div id="f-product-display" class="mt-1.5 bg-paper border border-line rounded-2xl px-4 py-3.5 text-[14px] text-muted">Belum ada produk dipilih</div>
+              <input type="hidden" id="f-buyer_sku_code" name="buyer_sku_code">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-[12px] font-bold text-muted">Nama Pembeli <span class="font-normal">(opsional)</span></label>
+                <input id="f-buyer_name" type="text" placeholder="Nama" class="input-clean mt-1.5">
+              </div>
+              <div>
+                <label class="text-[12px] font-bold text-muted">Metode Bayar</label>
+                <select class="input-clean mt-1.5 text-[14px] font-semibold">
+                  <option>Transfer / Qris</option>
+                  <option>DANA</option>
+                  <option>COD - Konter</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="bg-paper rounded-2xl px-4 py-3 flex items-center justify-between text-[14px] font-semibold border border-line">
+              <span class="text-muted">Total Bayar</span>
+              <span id="f-total-price" class="text-[20px] font-display text-ink">Rp 0</span>
+            </div>
+
+            <button id="btn-order" type="submit" class="btn-brand w-full py-3.5 text-[15px] disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+              Order Sekarang
+            </button>
+            <p class="text-[11.5px] text-center text-muted">Dengan order, kamu setuju pesanan diproses otomatis via Digiflazz.</p>
+          </form>
+
+          <div id="order-result" class="hidden mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[13.5px] text-emerald-900"></div>
+        </div>
+
+        <!-- Cek Status Card (below order form on desktop, stacked on mobile) -->
+        <div id="cek-status" class="bg-white rounded-[28px] shadow-soft border border-line p-6 md:p-7 mt-6 scroll-mt-24">
+          <h3 class="font-display text-[24px] text-ink">Cek Status Transaksi</h3>
+          <p class="text-[13.5px] text-muted mb-4">Masukkan Ref ID yang kamu dapat saat order.</p>
+          <form id="status-form" class="flex gap-2">
+            <input id="status-ref" type="text" placeholder="Contoh: ACN-..." class="input-clean flex-1 !py-3 text-[14px]" required>
+            <button class="px-4 py-3 rounded-2xl bg-ink text-white font-bold text-[13.5px] hover:bg-zinc-800 transition">Cek</button>
+          </form>
+          <div id="status-result" class="text-[13.5px] mt-3 text-muted min-h-[24px]"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- CARA ORDER -->
+  <section id="cara-order" class="mt-16 md:mt-24 scroll-mt-24">
+    <h2 class="font-display text-[34px] md:text-[40px] mb-6">Cara Order – 3 langkah doang</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="bg-white rounded-[24px] border border-line p-6 shadow-soft">
+        <div class="w-9 h-9 rounded-full bg-brand-light text-brand font-extrabold flex items-center justify-center text-[14px] mb-3">1</div>
+        <h4 class="font-bold text-[16px] mb-1">Pilih Produk</h4>
+        <p class="text-muted text-[14px]">Klik kartu produk di daftar harga. Harga sudah nett.</p>
+      </div>
+      <div class="bg-white rounded-[24px] border border-line p-6 shadow-soft">
+        <div class="w-9 h-9 rounded-full bg-brand-light text-brand font-extrabold flex items-center justify-center text-[14px] mb-3">2</div>
+        <h4 class="font-bold text-[16px] mb-1">Isi Nomor & Order</h4>
+        <p class="text-muted text-[14px]">Masukkan nomor tujuan / ID game, klik Order. Simpan Ref ID.</p>
+      </div>
+      <div class="bg-white rounded-[24px] border border-line p-6 shadow-soft">
+        <div class="w-9 h-9 rounded-full bg-brand-light text-brand font-extrabold flex items-center justify-center text-[14px] mb-3">3</div>
+        <h4 class="font-bold text-[16px] mb-1">Bayar & Tunggu Masuk</h4>
+        <p class="text-muted text-[14px]">Konfirmasi via WhatsApp. Biasanya 1-3 menit langsung masuk.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="mt-12 md:mt-20">
+    <div class="bg-[#f2ede3] rounded-[28px] border border-[#e4ddd0] px-6 md:px-10 py-8 md:py-10 grid md:grid-cols-3 gap-8 text-[14px]">
+      <div>
+        <h4 class="font-bold mb-1.5">Jam operasional?</h4>
+        <p class="text-muted leading-relaxed">24 jam, otomatis. Kalau server maintenance kami info di WA.</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-1.5">Berapa lama masuk?</h4>
+        <p class="text-muted leading-relaxed">Umumnya 30 detik – 3 menit. PLN kadang agak lama saat jam sibuk.</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-1.5">Bisa bayar apa aja?</h4>
+        <p class="text-muted leading-relaxed">Transfer bank, DANA, OVO, Gopay, Qris. COD ke konter juga bisa.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-line mt-14 bg-[#f5f1e8]">
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-14 grid md:grid-cols-4 gap-10 text-[14px]">
+    <div class="md:col-span-2">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-[14px] bg-brand flex items-center justify-center">
+          <i data-lucide="zap" class="w-[20px] h-[20px] text-white" stroke-width="2.5"></i>
+        </div>
+        <div>
+          <div class="font-display text-[18px]">Abyan Cell Ndeso</div>
+          <div class="text-[11px] font-bold tracking-widest text-brand -mt-0.5">NDESO</div>
+        </div>
+      <p class="text-muted max-w-sm leading-relaxed">Pulsa, Token PLN, Top-up Game Murah Ndeso. Konter online terpercaya, harga jujur, proses sat-set.</p>
+      <a id="wa-footer-link" href="#" target="_blank" class="inline-flex items-center gap-2 mt-4 bg-[#22c55e] text-white font-bold px-4 py-2.5 rounded-full text-[13.5px] shadow-soft hover:bg-[#16a34a] transition">
+        <i data-lucide="message-circle" class="w-4 h-4"></i> Chat WhatsApp Admin
+      </a>
+    </div>
+    <div>
+      <div class="font-bold mb-3">Produk</div>
+      <ul class="space-y-2 text-muted">
+        <li><a href="#produk" class="hover:text-ink">Pulsa All Operator</a></li>
+        <li><a href="#produk" class="hover:text-ink">Paket Data</a></li>
+        <li><a href="#produk" class="hover:text-ink">Token PLN</a></li>
+        <li><a href="#produk" class="hover:text-ink">Top-up Game</a></li>
+        <li><a href="#produk" class="hover:text-ink">E-Wallet</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="font-bold mb-3">Bantuan</div>
+      <ul class="space-y-2 text-muted">
+        <li><a href="#cek-status" class="hover:text-ink">Cek Status Transaksi</a></li>
+        <li><a href="#cara-order" class="hover:text-ink">Cara Order</a></li>
+        <li><a id="wa-footer-link-2" href="#" target="_blank" class="hover:text-ink">Hubungi Admin</a></li>
+      </ul>
+      <p class="text-[12px] text-muted mt-5">© <span id="year-now"></span> ABYAN CELL NDESO<br>Powered by Digiflazz</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky mobile order bar -->
+<div id="mobile-order-bar" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-xl border-t border-line px-4 py-3 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] hidden">
+  <div class="flex items-center justify-between gap-3">
+    <div class="min-w-0">
+      <div id="mob-product-name" class="text-[12.5px] font-bold truncate text-ink">Belum pilih produk</div>
+      <div id="mob-product-price" class="text-[13px] text-muted">Rp 0</div>
+    </div>
+    <button id="mob-scroll-order" class="btn-brand px-5 py-2.5 text-[13.5px] whitespace-nowrap">Order</button>
+  </div>
+</div>
+
+<script>
+/* ---------- Utilities ---------- */
+const fmtRp = (n) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n || 0).replace(/\s/g, '\u00A0');
+
+function showToast(message, type = 'info') {
+  const wrap = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  const bg = type === 'error' ? 'bg-rose-600' : type === 'success' ? 'bg-emerald-600' : 'bg-ink';
+  el.className = `toast ${bg} text-white text-[13.5px] font-semibold px-4 py-3 rounded-2xl shadow-soft-lg`;
+  el.textContent = message;
+  wrap.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateY(6px)'; el.style.transition = 'all .25s'; }, 3200);
+  setTimeout(() => el.remove(), 3600);
+}
+
+/* ---------- WhatsApp links ---------- */
+function buildWaLink(extra='') {
+  const msg = encodeURIComponent(STORE_CONFIG.wa_message + (extra ? ' - ' + extra : ''));
+  return `https://wa.me/${STORE_CONFIG.whatsapp}?text=${msg}`;
+}
+['wa-header-link','wa-hero-link','wa-footer-link','wa-footer-link-2'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.href = buildWaLink();
+});
+
+/* ---------- Operator checker (local simple) ---------- */
+const prefixes = [
+  {op:'Telkomsel', pre:['0811','0812','0813','0821','0822','0823','0851','0852','0853']},
+  {op:'Indosat', pre:['0814','0815','0816','0855','0856','0857','0858']},
+  {op:'XL / Axis', pre:['0817','0818','0819','0859','0877','0878','0831','0832','0833','0838']},
+  {op:'Tri', pre:['0895','0896','0897','0898','0899']},
+  {op:'Smartfren', pre:['0881','0882','0883','0884','0885','0886','0887','0888','0889']},
+];
+document.getElementById('checker-btn').addEventListener('click', doCheck);
+document.getElementById('checker-input').addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); doCheck(); }});
+function doCheck(){
+  const val = document.getElementById('checker-input').value.replace(/[^0-9]/g,'');
+  const out = document.getElementById('checker-result');
+  if(val.length < 8){ out.textContent = 'Nomor kurang lengkap.'; out.className='mt-3 text-[13.5px] font-semibold text-amber-700'; return;}
+  const p = val.substring(0,4);
+  const found = prefixes.find(x => x.pre.includes(p));
+  if(found){
+    out.innerHTML = `Operator terdeteksi: <b class="text-ink">${found.op}</b>`;
+    out.className='mt-3 text-[13.5px] font-semibold text-emerald-700';
+    // auto filter grid
+    const mapCat = {'Telkomsel':'Pulsa','Indosat':'Pulsa','XL / Axis':'Pulsa','Tri':'Pulsa','Smartfren':'Pulsa'};
+    filterProducts(found.op.toLowerCase());
+  } else {
+    out.textContent = 'Operator tidak dikenali, tapi tetap bisa dicoba.';
+    out.className='mt-3 text-[13.5px] font-semibold text-muted';
+  }
+  const cInput = document.getElementById('f-customer_no');
+  if(!cInput.value) cInput.value = val;
+}
+
+/* ---------- Price List ---------- */
+let ALL_PRODUCTS = [];
+let selectedProduct = null;
+let currentCategory = 'all';
+let searchQuery = '';
+
+const productGrid = document.getElementById('product-grid');
+const productLoading = document.getElementById('product-loading');
+const productEmpty = document.getElementById('product-empty');
+
+async function loadPriceList(){
+  productLoading.classList.remove('hidden');
+  try {
+    const res = await fetch('/.netlify/functions/price-list', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{}' });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    // Digiflazz format: data.data = [...]
+    const raw = data.data || data || [];
+    ALL_PRODUCTS = normalizeProducts(raw);
+    if(!ALL_PRODUCTS.length) throw new Error('empty');
+  } catch(e){
+    // Fallback demo list so UI still works nicely
+    ALL_PRODUCTS = demoProducts();
+    showToast('Gagal ambil harga live, menampilkan harga demo.', 'error');
+  }
+  productLoading.classList.add('hidden');
+  renderProducts();
+}
+
+function normalizeProducts(raw){
+  // Map Digiflazz fields to our internal shape
+  // buyer_sku_code, product_name, category, brand, price, seller_product_status
+  return raw
+    .filter(p => p.seller_product_status !== false)
+    .map(p => {
+      const name = p.product_name || p.name || '';
+      const brand = (p.brand || '').toUpperCase();
+      const catRaw = (p.category || '').toLowerCase();
+      let category = 'Pulsa';
+      if(catRaw.includes('data') || name.toLowerCase().includes('gb')) category = 'Data';
+      if(catRaw.includes('pln') || brand.includes('PLN')) category = 'PLN';
+      if(catRaw.includes('game') || ['MOBILE LEGENDS','FREE FIRE','PUBG','GENSHIN','ROBLOX','VALORANT'].some(g => name.toUpperCase().includes(g) || brand.includes(g))) category = 'Games';
+      const basePrice = Number(p.price || 0);
+      return {
+        buyer_sku_code: p.buyer_sku_code || p.sku || p.code,
+        product_name: name,
+        brand: p.brand || brand,
+        category,
+        price_base: basePrice,
+        price_sell: basePrice + STORE_CONFIG.markup,
+        status: true
+      };
+    })
+    .filter(p => p.buyer_sku_code && p.price_sell > 0);
+}
+
+function demoProducts(){
+  const base = [
+    ['TELKOMSEL 5.000', 'Telkomsel', 'Pulsa', 5750],
+    ['TELKOMSEL 10.000', 'Telkomsel', 'Pulsa', 10750],
+    ['TELKOMSEL 20.000', 'Telkomsel', 'Pulsa', 20050],
+    ['TELKOMSEL 50.000', 'Telkomsel', 'Pulsa', 49500],
+    ['INDOSAT 10.000', 'Indosat', 'Pulsa', 10700],
+    ['XL 10.000', 'XL', 'Pulsa', 10500],
+    ['AXIS 10.000', 'Axis', 'Pulsa', 10450],
+    ['TRI 20.000', 'Tri', 'Pulsa', 19750],
+    ['SMARTFREN 25.000', 'Smartfren', 'Pulsa', 24800],
+    ['TELKOMSEL DATA 3GB 30H', 'Telkomsel', 'Data', 21500],
+    ['XL DATA UNLIMITED 7H', 'XL', 'Data', 12500],
+    ['INDOSAT FREEDOM 5GB', 'Indosat', 'Data', 24500],
+    ['PLN TOKEN 20.000', 'PLN', 20000],
+    ['PLN TOKEN 50.000', 'PLN', 'PLN', 50000],
+    ['PLN TOKEN 100.000', 'PLN', 100000],
+    ['ML 86 Diamonds', 'Mobile Legends', 'Games', 21500],
+    ['ML 172 Diamonds', 'Mobile Legends', 'Games', 43000],
+    ['Free Fire 70 Diamonds', 'Free Fire', 'Games', 9850],
+    ['Free Fire 140 Diamonds', 'Free Fire', 'Games', 19500],
+  ];
+  return base.map((b,i)=>({
+    buyer_sku_code: 'DEMO'+i,
+    product_name: b[0],
+    brand: b[1],
+    category: b[2],
+    price_base: b[3],
+    price_sell: b[3] + STORE_CONFIG.markup,
+    status: true
+  }));
+}
+
+function renderProducts(){
+  const q = searchQuery.trim().toLowerCase();
+  let list = ALL_PRODUCTS.filter(p => {
+    const catOk = currentCategory === 'all' || p.category === currentCategory;
+    const searchOk = !q || (p.product_name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || (p.buyer_sku_code||'').toLowerCase().includes(q));
+    return catOk && searchOk;
+  });
+
+  productEmpty.classList.toggle('hidden', list.length > 0);
+  productGrid.innerHTML = '';
+  list.slice(0, 120).forEach(p => {
+    const div = document.createElement('button');
+    div.type = 'button';
+    div.className = 'product-card text-left';
+    div.dataset.sku = p.buyer_sku_code;
+    div.innerHTML = `
+      <div class="text-[11px] font-bold text-muted uppercase tracking-wide">${p.brand}</div>
+      <div class="font-bold text-[14.5px] text-ink leading-snug mt-1 min-h-[40px]">${escapeHtml(p.product_name)}</div>
+      <div class="mt-2 flex items-center justify-between">
+        <div class="font-display text-[18px] text-ink">${fmtRp(p.price_sell)}</div>
+        <span class="text-[11px] font-bold px-2 py-1 rounded-full bg-emerald-50 text-emerald-700">Ready</span>
+      </div>
+    `;
+    div.addEventListener('click', ()=> selectProduct(p, div));
+    productGrid.appendChild(div);
+  });
+}
+
+function selectProduct(p, cardEl){
+  selectedProduct = p;
+  document.querySelectorAll('.product-card').forEach(c=>c.classList.remove('selected'));
+  if(cardEl) cardEl.classList.add('selected');
+  document.getElementById('f-buyer_sku_code').value = p.buyer_sku_code;
+  document.getElementById('f-product-display').innerHTML = `<span class="text-ink font-bold">${escapeHtml(p.product_name)}</span><br><span class="text-muted text-[12px]">${p.brand} • ${p.buyer_sku_code}</span>`;
+  document.getElementById('f-total-price').textContent = fmtRp(p.price_sell);
+  validateOrderForm();
+  // mobile bar
+  const mobBar = document.getElementById('mobile-order-bar');
+  document.getElementById('mob-product-name').textContent = p.product_name;
+  document.getElementById('mob-product-price').textContent = fmtRp(p.price_sell);
+  mobBar.classList.remove('hidden');
+  showToast('Produk dipilih: ' + p.product_name, 'success');
+  // scroll to form on mobile
+  if(window.innerWidth < 1024){
+    document.querySelector('aside').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+function escapeHtml(s){ return s.replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+// category filter
+document.getElementById('category-chips').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button[data-cat]');
+  if(!btn) return;
+  currentCategory = btn.dataset.cat;
+  document.querySelectorAll('#category-chips button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+});
+
+document.getElementById('search-input').addEventListener('input', (e)=>{
+  searchQuery = e.target.value;
+  renderProducts();
+});
+
+function filterProducts(q){
+  searchQuery = q;
+  document.getElementById('search-input').value = q;
+  renderProducts();
+}
+
+/* ---------- Order Form ---------- */
+const orderForm = document.getElementById('order-form');
+const btnOrder = document.getElementById('btn-order');
+const fCustomer = document.getElementById('f-customer_no');
+
+function validateOrderForm(){
+  const ok = selectedProduct && fCustomer.value.trim().length >= 5;
+  btnOrder.disabled = !ok;
+  return ok;
+}
+fCustomer.addEventListener('input', validateOrderForm);
+
+orderForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  if(!validateOrderForm()) { showToast('Lengkapi nomor tujuan & pilih produk.', 'error'); return; }
+  const customer_no = fCustomer.value.trim();
+  const buyer_sku_code = selectedProduct.buyer_sku_code;
+  const ref_id = 'ACN-' + Date.now();
+
+  btnOrder.disabled = true;
+  btnOrder.textContent = 'Memproses...';
+
+  try {
+    const res = await fetch('/.netlify/functions/order', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ buyer_sku_code, customer_no, ref_id })
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.message || 'Order gagal');
+    const resultBox = document.getElementById('order-result');
+    resultBox.classList.remove('hidden');
+    resultBox.innerHTML = `<b>Order terkirim!</b><br>Ref ID: <code class="font-mono">${ref_id}</code><br>Status: ${data?.data?.status || data?.message || 'Sukses'}<br><br>Simpan Ref ID ini untuk cek status. Konfirmasi pembayaran via WA ya kak.`;
+    showToast('Order berhasil dikirim!', 'success');
+    // Pre-fill status checker
+    document.getElementById('status-ref').value = ref_id;
+    // Update WA link with order info
+    const waOrderMsg = `Halo kak, saya mau konfirmasi order ${selectedProduct.product_name} ke ${customer_no}. Ref: ${ref_id}`;
+    ['wa-header-link','wa-hero-link','wa-footer-link','wa-footer-link-2'].forEach(id=>{
+      const el = document.getElementById(id); if(el) el.href = `https://wa.me/${STORE_CONFIG.whatsapp}?text=${encodeURIComponent(waOrderMsg)}`;
+    });
+  } catch(err){
+    showToast('Order gagal: ' + err.message, 'error');
+    // Demo fallback
+    const resultBox = document.getElementById('order-result');
+    resultBox.classList.remove('hidden');
+    resultBox.className = 'mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-[13.5px] text-amber-900';
+    resultBox.innerHTML = `<b>Mode demo</b> – endpoint Netlify belum aktif.<br>Ref ID (simulasi): <code>${ref_id}</code><br>Produk: ${selectedProduct.product_name}<br>No: ${customer_no}<br><br>Silakan deploy Netlify Functions di bawah untuk order real.`;
+  } finally {
+    btnOrder.disabled = false;
+    btnOrder.textContent = 'Order Sekarang';
+  }
+});
+
+document.getElementById('mob-scroll-order').addEventListener('click', ()=>{
+  document.getElementById('order-form').scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(()=>fCustomer.focus(), 350);
+});
+
+/* ---------- Cek Status ---------- */
+document.getElementById('status-form').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const ref_id = document.getElementById('status-ref').value.trim();
+  const out = document.getElementById('status-result');
+  if(!ref_id){ out.textContent='Masukkan Ref ID dulu.'; return; }
+  out.textContent = 'Mengecek...';
+  try{
+    const res = await fetch('/.netlify/functions/status', {
+      method: 'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ ref_id })
+    });
+    const data = await res.json();
+    const st = data?.data?.status || data?.status || data?.message || 'Tidak ditemukan';
+    out.innerHTML = `Ref <b>${ref_id}</b>: <span class="font-bold text-ink">${st}</span>`;
+  } catch(err){
+    out.textContent = 'Gagal cek status (endpoint belum aktif / mode demo).';
+  }
+});
+
+/* ---------- Deposit Check ---------- */
+async function checkDeposit(){
+  const balEl = document.getElementById('deposit-balance');
+  const dot = document.getElementById('deposit-dot');
+  balEl.textContent = '...';
+  dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-400';
+  try{
+    const res = await fetch('/.netlify/functions/deposit', {method:'POST'});
+    const data = await res.json();
+    const saldo = data?.data?.deposit || data?.deposit || null;
+    if(saldo !== null){
+      balEl.textContent = fmtRp(saldo);
+      dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500';
+    } else throw new Error('no saldo');
+  } catch(e){
+    balEl.textContent = 'Rp —';
+    dot.className = 'w-2.5 h-2.5 rounded-full bg-zinc-300';
+  }
+}
+document.getElementById('btn-check-deposit').addEventListener('click', checkDeposit);
+
+/* ---------- Init ---------- */
+function init(){
+  document.getElementById('year-now').textContent = new Date().getFullYear();
+  loadPriceList();
+  checkDeposit();
+  lucide.createIcons();
+  document.getElementById('mobile-menu-btn').addEventListener('click', ()=>{
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(a=>a.addEventListener('click', ()=> document.getElementById('mobile-menu').classList.add('hidden')));
+}
+init();
+</script>
+
+<!--
+NETLIFY FUNCTIONS - COPY THESE
+=========================
+
+Buat folder di root project Anda: /netlify/functions/
+Lalu buat 4 file berikut di dalamnya.
+Jangan lupa set Environment Variables di Netlify:
+  DIGIFLAZZ_USERNAME = username_digiflazz_anda
+  DIGIFLAZZ_API_KEY  = api_key_production_anda
+
+File: netlify.toml (taruh di root project, sejajar dengan index.html)
+---------------------------------------------------------------------
+[build]
+  functions = "netlify/functions"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+---------------------------------------------------------------------
+
+File: /netlify/functions/_shared.js
+---------------------------------------------------------------------
+// /netlify/functions/_shared.js
+const crypto = require('crypto');
+
+const DIGIFLAZZ_USERNAME = process.env.DIGIFLAZZ_USERNAME;
+const DIGIFLAZZ_API_KEY = process.env.DIGIFLAZZ_API_KEY;
+const DIGIFLAZZ_URL = 'https://api.digiflazz.com/v1/transaction';
+
+function sign(str) {
+  return crypto.createHash('md5').update(str).digest('hex');
+}
+
+async function digiflazz(cmd, extra = {}) {
+  const payload = {
+    username: DIGIFLAZZ_USERNAME,
+    ...extra,
+    cmd
+  };
+  const response = await fetch(DIGIFLAZZ_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  const json = await response.json();
+  return json;
+}
+
+function res(body, statusCode = 200) {
+  return {
+    statusCode,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    },
+    body: JSON.stringify(body)
+  };
+}
+
+function handleOptions(event) {
+  if (event.httpMethod === 'OPTIONS') {
+    return res({ ok: true });
+  }
+  return null;
+}
+
+module.exports = { sign, digiflazz, res, handleOptions, DIGIFLAZZ_USERNAME, DIGIFLAZZ_API_KEY };
+---------------------------------------------------------------------
+
+File: /netlify/functions/price-list.js
+---------------------------------------------------------------------
+// /netlify/functions/price-list.js
+const { sign, digiflazz, res, handleOptions, DIGIFLAZZ_USERNAME, DIGIFLAZZ_API_KEY } = require('./_shared');
+
+exports.handler = async (event) => {
+  const opt = handleOptions(event);
+  if (opt) return opt;
+  try {
+    const signStr = sign(DIGIFLAZZ_USERNAME + DIGIFLAZZ_API_KEY + 'pricelist');
+    const result = await digiflazz('prepaid', {
+      sign: signStr
+    });
+    // Digiflazz price-list menggunakan cmd = 'prepaid' dengan username/sign saja
+    // Jika akun Anda menggunakan cmd = 'pricelist', ganti di bawah ini:
+    // const result = await digiflazz('pricelist', { sign: signStr });
+
+    return res(result);
+  } catch (e) {
+    return res({ error: true, message: e.message }, 500);
+  }
+};
+---------------------------------------------------------------------
+CATATAN: Beberapa akun Digiflazz menggunakan cmd 'prepaid' untuk price-list.
+Jika hasilnya kosong, ganti cmd di price-list.js menjadi 'pricelist':
+  const result = await digiflazz('pricelist', { sign: signStr });
+---------------------------------------------------------------------
+
+File: /netlify/functions/deposit.js
+---------------------------------------------------------------------
+// /netlify/functions/deposit.js
+const { sign, digiflazz, res, handleOptions, DIGIFLAZZ_USERNAME, DIGIFLAZZ_API_KEY } = require('./_shared');
+
+exports.handler = async (event) => {
+  const opt = handleOptions(event);
+  if (opt) return opt;
+  try {
+    const signStr = sign(DIGIFLAZZ_USERNAME + DIGIFLAZZ_API_KEY + 'deposit');
+    const result = await digiflazz('deposit', { sign: signStr });
+    return res(result);
+  } catch (e) {
+    return res({ error: true, message: e.message }, 500);
+  }
+};
+---------------------------------------------------------------------
+
+File: /netlify/functions/order.js
+---------------------------------------------------------------------
+// /netlify/functions/order.js
+const { sign, digiflazz, res, handleOptions, DIGIFLAZZ_USERNAME, DIGIFLAZZ_API_KEY } = require('./_shared');
+
+exports.handler = async (event) => {
+  const opt = handleOptions(event);
+  if (opt) return opt;
+  if (event.httpMethod !== 'POST') {
+    return res({ error: true, message: 'Method not allowed' }, 405);
+  }
+  try {
+    const { buyer_sku_code, customer_no, ref_id } = JSON.parse(event.body || '{}');
+    if (!buyer_sku_code || !customer_no || !ref_id) {
+      return res({ error: true, message: 'buyer_sku_code, customer_no, ref_id wajib diisi' }, 400);
+    }
+    const signStr = sign(DIGIFLAZZ_USERNAME + DIGIFLAZZ_API_KEY + ref_id);
+    const result = await digiflazz('prepaid', {
+      buyer_sku_code,
+      customer_no,
+      ref_id,
+      sign: signStr
+    });
+    return res(result);
+  } catch (e) {
+    return res({ error: true, message: e.message }, 500);
+  }
+};
+---------------------------------------------------------------------
+
+File: /netlify/functions/status.js
+---------------------------------------------------------------------
+// /netlify/functions/status.js
+const { sign, digiflazz, res, handleOptions, DIGIFLAZZ_USERNAME, DIGIFLAZZ_API_KEY } = require('./_shared');
+
+exports.handler = async (event) => {
+  const opt = handleOptions(event);
+  if (opt) return opt;
+  if (event.httpMethod !== 'POST') {
+    return res({ error: true, message: 'Method not allowed' }, 405);
+  }
+  try {
+    const { ref_id } = JSON.parse(event.body || '{}');
+    if (!ref_id) {
+      return res({ error: true, message: 'ref_id wajib diisi' }, 400);
+    }
+    const signStr = sign(DIGIFLAZZ_USERNAME + DIGIFLAZZ_API_KEY + ref_id);
+    const result = await digiflazz('status', {
+      ref_id,
+      sign: signStr
+    });
+    return res(result);
+  } catch (e) {
+    return res({ error: true, message: e.message }, 500);
+  }
+};
+---------------------------------------------------------------------
+
+SELESAI. Deploy ke Netlify, set ENV variables, dan toko ABYAN CELL NDESO siap jualan!
+
+-->
+
+</body>
+</html>
